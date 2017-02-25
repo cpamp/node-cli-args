@@ -10,3 +10,6 @@ ArgumentManager_1.Arguments.on(new ArgumentManager_1.Argument('bye', 'b', 'world
 ArgumentManager_1.Arguments.on(new ArgumentManager_1.Argument('another one', 'b', 'yes'), function (v) {
     console.log(v);
 });
+ArgumentManager_1.Arguments.onDefault(function (defaults) {
+    console.log(defaults);
+});

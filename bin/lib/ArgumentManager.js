@@ -42,6 +42,9 @@ var ArgumentManager = (function () {
             if (shortIndex !== -1)
                 _this.shorts[shortIndex] = '';
         };
+        this.onDefault = function (callback) {
+            callback(_this.defaults);
+        };
         this.on = function (arg, callback) {
             var defaultValue = arg.getDefaultValue();
             var called = _this.callArg(_this.longs, arg.getLong(), defaultValue, callback) ||

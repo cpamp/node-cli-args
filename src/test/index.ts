@@ -11,3 +11,7 @@ Arguments.on(new Argument('bye', 'b', 'worldss'), (val) => {
 Arguments.on(new Argument('another one', 'b', 'yes'), (v) => {
     console.log(v);
 });
+
+Arguments.onDefault((defaults) => {
+    console.log(defaults);
+});
