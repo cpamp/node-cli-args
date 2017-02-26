@@ -1,5 +1,5 @@
-import { Arguments, Argument } from '../lib/ArgumentManager';
-
+import { ArgumentManager, Argument } from '../lib/ArgumentManager';
+var Arguments = new ArgumentManager();
 Arguments.on(new Argument('hello', 'h', 'world'), (val) => {
     console.log('Hello' + val);
 });

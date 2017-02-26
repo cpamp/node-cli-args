@@ -6,7 +6,7 @@ const SINGLE_DASH = '-';
 const DOUBLE_DASH = '--';
 const EQUAL = '=';
 
-class ArgumentManager {
+export class ArgumentManager {
     private shorts: string[] = [];
     private longs: string[] = [];
     private defaults: string[] = [];
@@ -76,5 +76,4 @@ class ArgumentManager {
     };
 }
 
-export var Arguments = new ArgumentManager();
 export { Argument } from './Argument';
