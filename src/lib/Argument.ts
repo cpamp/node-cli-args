@@ -2,7 +2,7 @@
 
 export class Argument {
 
-    constructor(private long: string, private short?: string, private defaultValue?: string) { }
+    constructor(private long: string, private short?: string, private defaultValue?: any) { }
 
     public getLong = (): string => {
         return this.long;
