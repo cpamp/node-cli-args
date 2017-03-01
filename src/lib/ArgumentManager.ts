@@ -43,11 +43,11 @@ export class ArgumentManager {
         return -1;
     };
 
-    private callArg = (lngShrt: string[], arg: string, defaultValue: string, callback: IArgumentCallback): boolean => {
+    private callArg = (lngShrt: string[], arg: string, defaultValue: any, callback: IArgumentCallback): boolean => {
         var index = this.indexOf(lngShrt, arg);
         if (index !== -1) {
             var value = this.getValue(lngShrt[index], defaultValue);
-            callback(value);
+            callback(value, defaultValue);
             return true;
         }
         return false;
