@@ -11,6 +11,9 @@ export class ArgumentManager {
     private longs: string[] = [];
     private defaults: string[] = [];
 
+    private registeredShorts: string[] = [];
+    private registeredLongs: string[] = [];
+
     constructor() {
         var args = process.argv.slice(2);
         args.forEach((arg, i) => {
@@ -27,23 +30,23 @@ export class ArgumentManager {
         });
     }
 
-    private getValue = (arg: string, value: string): string => {
+    private getValue (arg: string, value: string): string {
         var indexEqual: number = arg.indexOf(EQUAL);
         if (indexEqual !== -1) {
             return arg.substr(indexEqual + 1);
         } else { 
             return value;
         }
-    };
+    }
 
-    private indexOf = (arr: string[], arg: string): number => {
+    private indexOf (arr: string[], arg: string): number {
         for (var i = 0; i < arr.length; i++) {
             if (arr[i].indexOf(arg) === 0) return i;
         }
         return -1;
-    };
+    }
 
-    private callArg = (lngShrt: string[], arg: string, defaultValue: any, callback: IArgumentCallback): boolean => {
+    private callArg (lngShrt: string[], arg: string, defaultValue: any, callback: IArgumentCallback): boolean {
         var index = this.indexOf(lngShrt, arg);
         if (index !== -1) {
             var value = this.getValue(lngShrt[index], defaultValue);
@@ -51,29 +54,45 @@ export class ArgumentManager {
             return true;
         }
         return false;
-    };
+    }
 
-    private remove = (arg: Argument) => {
+    private remove (arg: Argument) {
         var longIndex = this.longs.indexOf(arg.getLong());
         var shortIndex = this.shorts.indexOf(arg.getShort());
         if (longIndex !== -1) this.longs[longIndex] = '';
         if (shortIndex !== -1) this.shorts[shortIndex] = '';
-    };
+    }
 
-    public onDefault = (callback: IDefaultCallback) => {
+    public onDefault(callback: IDefaultCallback) {
         callback(this.defaults);
-    };
+    }
 
-    public on = (arg: Argument, callback: IArgumentCallback) => {
+    public on(arg: Argument, callback: IArgumentCallback) {
+        this.register(arg);
         var defaultValue = arg.getDefaultValue();
         var called: boolean =
             this.callArg(this.longs, arg.getLong(), defaultValue, callback) ||
             this.callArg(this.shorts, arg.getShort(), defaultValue, callback);
-        
+
         if (called) {
             this.remove(arg);
         }
-    };
+    }
+
+    private register(arg: Argument) {
+        this.checkRegistered(arg);
+        this.registeredLongs.push(arg.getLong());
+        this.registeredShorts.push(arg.getShort());
+    }
+
+    private checkRegistered(arg: Argument) {
+        if (this.indexOf(this.registeredLongs, arg.getLong()) !== -1) {
+            throw 'The long argument ' + arg.getLong() + ' has already been registered';
+        }
+        if (this.indexOf(this.registeredShorts, arg.getShort()) !== -1) {
+            throw 'The short argument ' + arg.getShort() + ' has already been registered';
+        }
+    }
 }
 
 export { Argument } from './Argument';

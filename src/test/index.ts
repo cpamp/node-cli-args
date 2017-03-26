@@ -8,7 +8,23 @@ Arguments.on(new Argument('bye', 'b', 'worldss'), (val) => {
     console.log('Goodbye ' + val);
 });
 
-Arguments.on(new Argument('another one', 'b', 'yes'), (v) => {
+try {
+    Arguments.on(new Argument('bye', 'z', 'worldss'), (val) => {
+        console.log('Goodbye ' + val);
+    });
+} catch(e) {
+    console.log(e);
+}
+
+try {
+    Arguments.on(new Argument('bzz', 'b', 'worldss'), (val) => {
+        console.log('Goodbye ' + val);
+    });
+} catch(e) {
+    console.log(e);
+}
+
+Arguments.on(new Argument('another one', 'c', 'yes'), (v) => {
     console.log(v);
 });
 
