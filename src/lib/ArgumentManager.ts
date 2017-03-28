@@ -41,7 +41,7 @@ export class ArgumentManager {
 
     private indexOf (arr: string[], arg: string): number {
         for (var i = 0; i < arr.length; i++) {
-            if (arr[i].indexOf(arg) === 0) return i;
+            if (typeof arr[i] === 'string' && arr[i].indexOf(arg) === 0) return i;
         }
         return -1;
     }
